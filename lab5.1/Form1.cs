@@ -33,5 +33,20 @@ namespace lab5._1
             }
             
         }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            float dx = marker.X;
+            float dy = marker.Y;
+
+            float lenght = MathF.Sqrt(dx*dx + dy * dy);
+            dx /= lenght;
+            dy /= lenght;
+
+            player.X += dx * 2;
+            player.Y += dy * 2;
+
+            pbMain.Invalidate(); 
+        }
     }
 }

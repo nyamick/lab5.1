@@ -14,6 +14,10 @@ namespace lab5._1
         {
             InitializeComponent();
             player = new Player(pbMain.Width / 2, pbMain.Height / 2, 0);
+            player.OnOverlap += (p, obj) =>
+            {
+                txtLog.Text = $"[{DateTime.Now:HH:mm:ss:ff}] Игрок пересекся с {obj}\n" + txtLog.Text;
+            };
             marker = new Marker(pbMain.Width / 2 + 50, pbMain.Height / 2 + 50, 0);
             objects.Add(marker);
             objects.Add(player);
@@ -26,12 +30,20 @@ namespace lab5._1
             var g = e.Graphics;
             g.Clear(Color.White);
 
-            foreach(var obj in objects)
+            foreach(var obj in objects.ToList())
             {
                 if (obj != player && player.Overplaps(obj, g))
                 {
-                    
-                    txtLog.Text = $"[{DateTime.Now:HH:mm:ss:ff}] Игрок пересекся с {obj}\n" + txtLog.Text;
+
+                    player.Overlap(obj); 
+                    obj.Overlap(player); 
+
+                    if (obj == marker)
+                    {
+                       
+                        objects.Remove(marker);
+                        marker = null;
+                    }
                 }
                 g.Transform = obj.GetTransform();
                 obj.Render(g);
@@ -41,21 +53,30 @@ namespace lab5._1
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            float dx = marker.X - player.X;
-            float dy = marker.Y - player.Y;
+            if (marker != null)
+            {
+                float dx = marker.X - player.X;
+                float dy = marker.Y - player.Y;
 
-            float lenght = MathF.Sqrt(dx*dx + dy * dy);
-            dx /= lenght;
-            dy /= lenght;
+                float length = MathF.Sqrt(dx * dx + dy * dy);
+                dx /= length;
+                dy /= length;
 
-            player.X += dx * 2;
-            player.Y += dy * 2;
+                player.X += dx * 2;
+                player.Y += dy * 2;
+            }
 
             pbMain.Invalidate(); 
         }
 
         private void pbMain_MouseClick(object sender, MouseEventArgs e)
         {
+            if (marker == null)
+            {
+                marker = new Marker(0, 0, 0);
+                objects.Add(marker);
+            }
+
             marker.X = e.X;
             marker.Y = e.Y;
         }

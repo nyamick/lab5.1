@@ -13,6 +13,7 @@ namespace lab5._1.Objects
         public float X;
         public float Y;
         public float Angle;
+        public Action<BaseObject, BaseObject> OnOverlap;
 
         public BaseObject(float x, float y, float angle)
         {
@@ -52,6 +53,14 @@ namespace lab5._1.Objects
             var region = new Region(path1);
             region.Intersect(path2);
             return !region.IsEmpty(g);
+        }
+
+        public virtual void Overlap(BaseObject obj)
+        {
+            if (this.OnOverlap != null)
+            {
+                this.OnOverlap(this, obj);
+            }
         }
     }
 

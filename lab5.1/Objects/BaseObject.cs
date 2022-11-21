@@ -14,6 +14,9 @@ namespace lab5._1.Objects
         public float Y;
         public float Angle;
         public Action<BaseObject, BaseObject> OnOverlap;
+        public Action<Marker> OnMarkerOverlap;
+        public float vX, vY;
+
 
         public BaseObject(float x, float y, float angle)
         {

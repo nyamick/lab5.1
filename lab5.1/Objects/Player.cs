@@ -9,6 +9,8 @@ namespace lab5._1.Objects
 {
     class Player : BaseObject
     {
+        public Action<Marker> OnMarkerOverlap;
+        public Action<GreenCircle> OnCircleOverlap;
         public Player(float x, float y, float angle) : base(x, y, angle)
         {
 
@@ -34,6 +36,20 @@ namespace lab5._1.Objects
             path.AddEllipse(-15, -15, 30, 30);
             return path;
 
+        }
+
+        public override void Overlap(BaseObject obj)
+        {
+            base.Overlap(obj);
+            
+            if (obj is Marker)
+            {
+                OnMarkerOverlap(obj as Marker);   
+            }
+            if (obj is GreenCircle)
+            {
+                OnCircleOverlap(obj as GreenCircle);
+            }
         }
     }
 }

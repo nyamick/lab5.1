@@ -36,8 +36,8 @@ namespace lab5._1
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            float dx = marker.X;
-            float dy = marker.Y;
+            float dx = marker.X - player.X;
+            float dy = marker.Y - player.Y;
 
             float lenght = MathF.Sqrt(dx*dx + dy * dy);
             dx /= lenght;

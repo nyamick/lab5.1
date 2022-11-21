@@ -28,6 +28,11 @@ namespace lab5._1
 
             foreach(var obj in objects)
             {
+                if (obj != player && player.Overplaps(obj, g))
+                {
+                    
+                    txtLog.Text = $"[{DateTime.Now:HH:mm:ss:ff}] Игрок пересекся с {obj}\n" + txtLog.Text;
+                }
                 g.Transform = obj.GetTransform();
                 obj.Render(g);
             }
@@ -47,6 +52,12 @@ namespace lab5._1
             player.Y += dy * 2;
 
             pbMain.Invalidate(); 
+        }
+
+        private void pbMain_MouseClick(object sender, MouseEventArgs e)
+        {
+            marker.X = e.X;
+            marker.Y = e.Y;
         }
     }
 }

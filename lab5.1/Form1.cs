@@ -94,6 +94,7 @@ namespace lab5._1
          
 
             pbMain.Invalidate();
+            
         }
 
         private void pbMain_MouseClick(object sender, MouseEventArgs e)
@@ -130,6 +131,28 @@ namespace lab5._1
             player.Y += player.vY;
 
            
+        }
+
+        private void circleTimer_Tick(object sender, EventArgs e)
+        {
+            green1.R--;
+            green2.R--;
+
+            var rnd = new Random();
+            
+            if (green1.R <= 0)
+            {
+                objects.Remove(green1);
+                green1 = new GreenCircle(rnd.Next(15, 430), rnd.Next(15, 240), 0);
+                objects.Add(green1);
+            }
+            
+            if (green2.R <= 0)
+            {
+                objects.Remove(green2);
+                green2 = new GreenCircle(rnd.Next(15, 430), rnd.Next(15, 240), 0);
+                objects.Add(green2);
+            }
         }
     }
 }

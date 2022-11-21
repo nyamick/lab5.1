@@ -33,6 +33,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.txtLog = new System.Windows.Forms.RichTextBox();
             this.txtPoints = new System.Windows.Forms.TextBox();
+            this.circleTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbMain)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,6 +68,12 @@
             this.txtPoints.Size = new System.Drawing.Size(125, 27);
             this.txtPoints.TabIndex = 2;
             // 
+            // circleTimer
+            // 
+            this.circleTimer.Enabled = true;
+            this.circleTimer.Interval = 90;
+            this.circleTimer.Tick += new System.EventHandler(this.circleTimer_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -89,5 +96,6 @@
         private System.Windows.Forms.Timer timer1;
         private RichTextBox txtLog;
         private TextBox txtPoints;
+        private System.Windows.Forms.Timer circleTimer;
     }
 }

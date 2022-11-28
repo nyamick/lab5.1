@@ -13,6 +13,7 @@ namespace lab5._1
         GreenCircle green1;
         GreenCircle green2;
         int counter = 0;
+        Random rnd = new Random();
         public Form1()
         {
             InitializeComponent();
@@ -21,7 +22,9 @@ namespace lab5._1
 
             green1 = new GreenCircle(rnd.Next(15, 430), rnd.Next(15, 240), 0);
             green2 = new GreenCircle(rnd.Next(15, 430), rnd.Next(15, 240), 0);
-           
+            updatePoints();
+
+
             player.OnOverlap += (p, obj) =>
             {
                 txtLog.Text = $"[{DateTime.Now:HH:mm:ss:ff}] Игрок пересекся с {obj}\n" + txtLog.Text;
@@ -135,10 +138,10 @@ namespace lab5._1
 
         private void circleTimer_Tick(object sender, EventArgs e)
         {
-            green1.R--;
-            green2.R--;
+           /* green1.R--;
+            green2.R--*/;
 
-            var rnd = new Random();
+            /*var rnd = new Random();
             
             if (green1.R <= 0)
             {
@@ -152,7 +155,20 @@ namespace lab5._1
                 objects.Remove(green2);
                 green2 = new GreenCircle(rnd.Next(15, 430), rnd.Next(15, 240), 0);
                 objects.Add(green2);
-            }
+            }*/
+        }
+        public void updatePoints()
+        {
+
+            green1.onDeath += onPointDeath;
+            green2.onDeath += onPointDeath;
+
+        }
+        private void onPointDeath(GreenCircle m)
+        {
+            m.X = rnd.Next(15, 430);
+            m.Y = rnd.Next(15, 240);
+
         }
     }
 }
